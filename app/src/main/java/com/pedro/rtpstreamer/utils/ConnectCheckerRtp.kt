@@ -1,4 +1,4 @@
-package com.pedro.rtpstreamer.backgroundexample
+package com.pedro.rtpstreamer.utils
 
 import com.pedro.rtsp.utils.ConnectCheckerRtsp
 import net.ossrs.rtmp.ConnectCheckerRtmp

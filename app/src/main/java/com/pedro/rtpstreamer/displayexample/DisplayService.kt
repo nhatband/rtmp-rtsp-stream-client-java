@@ -9,20 +9,27 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.pedro.rtplibrary.base.DisplayBase
 import com.pedro.rtplibrary.rtmp.RtmpDisplay
 import com.pedro.rtplibrary.rtsp.RtspDisplay
 import com.pedro.rtpstreamer.R
-import com.pedro.rtpstreamer.backgroundexample.ConnectCheckerRtp
+import com.pedro.rtpstreamer.utils.ConnectCheckerRtp
 
 
 /**
  * Basic RTMP/RTSP service streaming implementation with camera2
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-class DisplayService : Service() {
+class DisplayService : Service()  {
+  private val mWindowManager: WindowManager? = null
+  private var myFloatingView: View? = null
+  private val isOn = false
+  private val location = IntArray(2)
 
   private var endpoint: String? = null
 
@@ -35,6 +42,14 @@ class DisplayService : Service() {
       notificationManager?.createNotificationChannel(channel)
     }
     keepAliveTrick()
+    myFloatingView = LayoutInflater.from(this).inflate(R.layout.widget, null)
+    val layout_parms: Int
+    layout_parms = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+    } else {
+      WindowManager.LayoutParams.TYPE_PHONE
+    }
+
   }
 
   private fun keepAliveTrick() {
@@ -170,4 +185,5 @@ class DisplayService : Service() {
       showNotification("You are already streaming :(")
     }
   }
+
 }

@@ -4,42 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/tv_version"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="@color/appColor"
-      android:textSize="12sp"
-      android:layout_marginTop="@dimen/grid_2"
-      android:layout_marginLeft="@dimen/grid_2"
-      android:layout_marginRight="@dimen/grid_2"
-      />
-  <TextView
-      android:id="@+id/tv_select"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/grid_2"
-      android:layout_marginLeft="@dimen/grid_2"
-      android:layout_marginRight="@dimen/grid_2"
-      android:text="@string/tv_select"
-      android:textColor="@color/appColor"
-      android:textSize="22sp"
-      />
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_2"
+        android:layout_marginRight="@dimen/grid_2"
+        android:textColor="@color/appColor"
+        android:textSize="12sp" />
 
-  <GridView
-      android:id="@+id/list"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="@dimen/grid_1"
-      android:columnWidth="40dp"
-      android:gravity="center"
-      android:horizontalSpacing="@dimen/grid_2"
-      android:numColumns="2"
-      android:padding="@dimen/grid_2"
-      android:stretchMode="columnWidth"
-      android:verticalSpacing="@dimen/grid_2"
-      />
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_2"
+        android:layout_marginRight="@dimen/grid_2"
+        android:text="@string/tv_select"
+        android:textColor="@color/appColor"
+        android:textSize="22sp" />
+
+    <EditText
+        android:id="@+id/et_rtp_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/grid_10"
+        android:gravity="center_horizontal"
+        android:hint="rtmp://192.168.100.248:11935/ID" />
+
+    <Button
+        android:id="@+id/b_start_stop"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/start_button" />
+    <!--  <GridView-->
+    <!--      android:id="@+id/list"-->
+    <!--      android:layout_width="match_parent"-->
+    <!--      android:layout_height="match_parent"-->
+    <!--      android:layout_marginTop="@dimen/grid_1"-->
+    <!--      android:columnWidth="40dp"-->
+    <!--      android:gravity="center"-->
+    <!--      android:horizontalSpacing="@dimen/grid_2"-->
+    <!--      android:numColumns="2"-->
+    <!--      android:padding="@dimen/grid_2"-->
+    <!--      android:stretchMode="columnWidth"-->
+    <!--      android:verticalSpacing="@dimen/grid_2"-->
+    <!--      />-->
 </LinearLayout>
