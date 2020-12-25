@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ConnectCheckerRtm
 //        }
         if (DisplayService.Companion.isStreaming()){
             stopService(new Intent(MainActivity.this, DisplayService.class));
-//            finish();
+            finish();
         }
         startActivityForResult(DisplayService.Companion.sendIntent(), REQUEST_CODE_STREAM);
 

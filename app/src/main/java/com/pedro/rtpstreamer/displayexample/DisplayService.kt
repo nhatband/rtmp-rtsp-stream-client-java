@@ -33,65 +33,11 @@ import com.pedro.rtpstreamer.utils.ConnectCheckerRtp
  */
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 class DisplayService : Service() {
-//    private lateinit var manager: WindowManager
-//    private lateinit var view: View
-//    private lateinit var params: WindowManager.LayoutParams
-//    private var xForRecord = 0
-//    private var yForRecord = 0
-//    private val location = IntArray(2)
-//    private val isOn = false
+
     private var endpoint: String? = null
 
     override fun onCreate() {
         super.onCreate()
-//        view = LayoutInflater.from(this).inflate(R.layout.widget, null)
-//        val overlayParam =
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-//                } else {
-//                    WindowManager.LayoutParams.TYPE_PHONE
-//                }
-//        params = WindowManager.LayoutParams(
-//                WindowManager.LayoutParams.WRAP_CONTENT,
-//                WindowManager.LayoutParams.WRAP_CONTENT,
-//                overlayParam,
-//                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-//                PixelFormat.TRANSLUCENT)
-//        manager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-//        manager.addView(view, params)
-//        //adding an touchlistener to make drag movement of the floating widget
-//        val builder = VmPolicy.Builder()
-//        StrictMode.setVmPolicy(builder.build())
-//        view.findViewById<View>(R.id.buttonClick).setOnTouchListener(object : OnTouchListener {
-//            private var initialX = 0
-//            private var initialY = 0
-//            private var initialTouchX = 0f
-//            private var initialTouchY = 0f
-//            override fun onTouch(v: View, event: MotionEvent): Boolean {
-//                Log.d("TOUCH", "THIS IS TOUCHED")
-//                when (event.action) {
-//                    MotionEvent.ACTION_DOWN -> {
-//                        initialX = params.x
-//                        initialY = params.y
-//                        initialTouchX = event.rawX
-//                        initialTouchY = event.rawY
-//                        //this code is helping the widget to move around the screen with fingers
-//                        params.x = initialX + (event.rawX - initialTouchX).toInt()
-//                        params.y = initialY + (event.rawY - initialTouchY).toInt()
-//                        manager.updateViewLayout(view, params)
-//                    }
-//                    MotionEvent.ACTION_UP, MotionEvent.ACTION_MOVE -> {
-//                        params.x = initialX + (event.rawX - initialTouchX).toInt()
-//                        params.y = initialY + (event.rawY - initialTouchY).toInt()
-//                        manager.updateViewLayout(view, params)
-//                    }
-//                }
-//                return false
-//            }
-//        })
-//        val startButton: TextView = view.findViewById<TextView>(R.id.buttonClick)
-
-//        manager.updateViewLayout(view, params)
         Log.e(TAG, "RTP Display service create")
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

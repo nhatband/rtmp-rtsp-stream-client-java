@@ -69,11 +69,6 @@
       </intent-filter>
     </activity>
 
-<!--    <activity-->
-<!--        android:name=".displayexample.DisplayActivity"-->
-<!--        android:label="@string/display_rtmp"-->
-<!--        android:screenOrientation="portrait"-->
-<!--        />-->
     <service android:name=".displayexample.DisplayService"
         android:foregroundServiceType="mediaProjection"
         />
