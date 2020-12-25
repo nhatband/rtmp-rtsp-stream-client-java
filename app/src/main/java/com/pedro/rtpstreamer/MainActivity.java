@@ -19,25 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.provider.Settings;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.datatransport.BuildConfig;
-import com.pedro.rtpstreamer.displayexample.DisplayActivity;
 import com.pedro.rtpstreamer.displayexample.DisplayService;
-import com.pedro.rtpstreamer.utils.ActivityLink;
-import com.pedro.rtpstreamer.utils.ImageAdapter;
 
 import net.ossrs.rtmp.ConnectCheckerRtmp;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR2;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
@@ -65,54 +56,29 @@ public class MainActivity extends AppCompatActivity implements ConnectCheckerRtm
         TextView tvVersion = findViewById(R.id.tv_version);
         tvVersion.setText(getString(R.string.version, BuildConfig.VERSION_NAME));
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        button = findViewById(R.id.b_start_stop);
-        button.setOnClickListener(this);
+//        button = findViewById(R.id.b_start_stop);
+//        button.setOnClickListener(this);
         etUrl = findViewById(R.id.et_rtp_url);
         String DeviceID = Settings.Secure.getString(getBaseContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
         etUrl.setText("rtmp://192.168.100.248:11935/live/"+DeviceID);
         getInstance();
-        if (DisplayService.Companion.isStreaming()) {
-            button.setText(R.string.stop_button);
-        } else {
-            button.setText(R.string.start_button);
+//        if (DisplayService.Companion.isStreaming()) {
+//            button.setText(R.string.stop_button);
+//        } else {
+//            button.setText(R.string.start_button);
+//        }
+//        if (!hasPermissions(this, PERMISSIONS)) {
+//            ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
+//        }
+        if (DisplayService.Companion.isStreaming()){
+            stopService(new Intent(MainActivity.this, DisplayService.class));
+//            finish();
         }
-//    list = findViewById(R.id.list);
-//    createList();
-//    setListAdapter(activities);
+        startActivityForResult(DisplayService.Companion.sendIntent(), REQUEST_CODE_STREAM);
 
-        if (!hasPermissions(this, PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, 1);
-        }
     }
 
-//  private void createList() {
-//    activities = new ArrayList<>();
-//    activities.add(new ActivityLink(new Intent(this, DisplayActivity.class),
-//        getString(R.string.display_rtmp), LOLLIPOP));
-//
-//  }
-
-//  private void setListAdapter(List<ActivityLink> activities) {
-//    list.setAdapter(new ImageAdapter(activities));
-//    list.setOnItemClickListener(this);
-//  }
-
-//  @Override
-//  public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//    if (hasPermissions(this, PERMISSIONS)) {
-//      ActivityLink link = activities.get(i);
-//      int minSdk = link.getMinSdk();
-//      if (Build.VERSION.SDK_INT >= minSdk) {
-//        startActivity(link.getIntent());
-//        overridePendingTransition(R.transition.slide_in, R.transition.slide_out);
-//      } else {
-//        showMinSdkError(minSdk);
-//      }
-//    } else {
-//      showPermissionsErrorAndRequest();
-//    }
-//  }
 private void initNotification() {
     Notification.Builder notificationBuilder =
             new Notification.Builder(this).setSmallIcon(R.drawable.notification_anim)
@@ -165,26 +131,25 @@ private void getInstance() {
         }
         return true;
     }
-
     @RequiresApi(api = LOLLIPOP)
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.b_start_stop:
-                if (!DisplayService.Companion.isStreaming()) {
-                    button.setText(R.string.stop_button);
-                    startActivityForResult(DisplayService.Companion.sendIntent(), REQUEST_CODE_STREAM);
-                } else {
-                    button.setText(R.string.start_button);
-                    stopService(new Intent(MainActivity.this, DisplayService.class));
-                }
-                if (!DisplayService.Companion.isStreaming() && !DisplayService.Companion.isRecording()) {
-                    stopNotification();
-                }
-                break;
-            default:
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.b_start_stop:
+//                if (!DisplayService.Companion.isStreaming()) {
+//                    button.setText(R.string.stop_button);
+//                    startActivityForResult(DisplayService.Companion.sendIntent(), REQUEST_CODE_STREAM);
+//                } else {
+//                    button.setText(R.string.start_button);
+//                    stopService(new Intent(MainActivity.this, DisplayService.class));
+//                }
+//                if (!DisplayService.Companion.isStreaming() && !DisplayService.Companion.isRecording()) {
+//                    stopNotification();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     @Override
@@ -196,7 +161,6 @@ private void getInstance() {
             }
         });
     }
-
     @Override
     public void onConnectionFailedRtmp(@NonNull final String reason) {
         runOnUiThread(new Runnable() {
@@ -257,6 +221,7 @@ private void getInstance() {
             Intent intent = new Intent(this, DisplayService.class);
             intent.putExtra("endpoint", etUrl.getText().toString());
             startService(intent);
+            finish();
         } else {
             Toast.makeText(this, "No permissions available", Toast.LENGTH_SHORT).show();
             button.setText(R.string.start_button);

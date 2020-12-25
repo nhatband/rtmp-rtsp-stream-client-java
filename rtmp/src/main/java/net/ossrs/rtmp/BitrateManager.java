@@ -18,7 +18,7 @@ public class BitrateManager {
   public synchronized void calculateBitrate(long size) {
     bitrate += size;
     long timeDiff = System.currentTimeMillis() - timeStamp;
-    if (timeDiff >= 1000) {
+    if (timeDiff >= 1) {
       connectCheckerRtmp.onNewBitrateRtmp((int) (bitrate / (timeDiff / 1000f)));
       timeStamp = System.currentTimeMillis();
       bitrate = 0;
